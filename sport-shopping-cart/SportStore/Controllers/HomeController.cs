@@ -6,16 +6,16 @@ namespace SportStore.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IStoreRepository storeRepository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IStoreRepository repo)
     {
-        _logger = logger;
+        storeRepository = repo;
     }
 
     public IActionResult Index()
     {
-        return View();
+        return View(storeRepository.Products);
     }
 
     public IActionResult Privacy()
