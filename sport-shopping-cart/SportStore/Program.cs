@@ -11,6 +11,7 @@ builder.Services.AddDbContext<StoreDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 
 var app = builder.Build();
 
@@ -32,5 +33,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+SeedData.EnsurePopulated(app);
 
 app.Run();
