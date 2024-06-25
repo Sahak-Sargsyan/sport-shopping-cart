@@ -15,6 +15,8 @@ builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 
 //Razor Pages
 builder.Services.AddRazorPages();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -28,6 +30,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
 app.MapControllerRoute("catpage",
  "{category}/Page{productPage:int}",
