@@ -12,6 +12,7 @@ builder.Services.AddDbContext<StoreDbContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 //Razor Pages
 builder.Services.AddRazorPages();
