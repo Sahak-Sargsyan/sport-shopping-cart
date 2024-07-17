@@ -6,17 +6,25 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//Data services
+// Data services
 builder.Services.AddDbContext<StoreDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
-//Razor Pages
+// Razor Pages
 builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+
+// Cart Services
+builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+// Blazor Server
+builder.Services.AddServerSideBlazor();
 
 var app = builder.Build();
 
@@ -47,6 +55,8 @@ app.MapControllerRoute("pagination", "Products/Page{prodPage}", new { Controller
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+app.MapBlazorHub();
+app.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
 
 SeedData.EnsurePopulated(app);
 
