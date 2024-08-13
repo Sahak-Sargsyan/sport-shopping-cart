@@ -63,7 +63,7 @@ The Sports Shopping Cart application is designed to provide a seamless shopping 
 - Add to Cart: Add desired products to the shopping cart.
 - Checkout: Proceed to purchase the selected products.
 - /admin: Admin page with login.
-- Test account: username: admin, password: password111@
+- Test account: username: admin, password: Password111@
 
 ## Project Structure
 - Controllers: Handles user input and interactions.
